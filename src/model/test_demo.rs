@@ -5,6 +5,7 @@ pub mod test_demo {
     pub fn test_demo() -> String {
         let mut x = String::from("hello");
         println!("{}", x);
+        x.push_str(", world!");
         return x;
     }
 }
