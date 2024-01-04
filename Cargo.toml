@@ -3,9 +3,6 @@ name = "projec1"
 version = "0.1.0"
 edition = "2021"
 
-[http]
-proxy = "http://127.0.0.1:10809"
-
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]

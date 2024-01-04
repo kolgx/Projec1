@@ -1,26 +1,44 @@
-mod model {
-    pub mod test_demo;
-}
+// mod model {
+//     pub mod test_demo;
+// }
 
 use rand::Rng;
-use crate::model::test_demo::test_demo::test_demo;
+// use crate::model::test_demo::test_demo::test_demo;
 
 fn main() {
-    let input = get_user_input();
-    print_user_input(input);
-    let x = test_demo();
-    println!("{}", x);
+    let guess = create_random_number();
+    println!("The secret number is: {}", guess);
+
+    loop {
+        let input : u32 = get_user_input();
+        print!("your input value is: {}, ", input);
+
+        match input.cmp(&guess) {
+            std::cmp::Ordering::Less => println!("Too small!"),
+            std::cmp::Ordering::Greater => println!("Too big!"),
+            std::cmp::Ordering::Equal => {
+                println!("You win!");
+                break;
+            },
+        }
+    }
 }
 
-fn get_user_input() -> String {
-    println!("Please input your text:");
+fn get_user_input() -> u32 {
     let mut input = String::new();
-    std::io::stdin().read_line(&mut input).expect("Failed to read line");
-    return input;
-}
-
-fn print_user_input(input: String) {
-    println!("your input value is: {}", input);
+    loop {
+        input.clear();
+        println!("Please input your number:");
+        std::io::stdin().read_line(&mut input).expect("Failed to read line");
+        let input_int: u32 = match input.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("Not a number {}, please input again", input.trim());
+                continue;
+            },
+        };
+        return input_int;
+    }
 }
 
 fn create_random_number() -> u32 {
