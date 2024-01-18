@@ -1,48 +1,29 @@
-// mod model {
-//     pub mod test_demo;
-// }
+use std::thread::Thread;
 
-use rand::Rng;
-// use crate::model::test_demo::test_demo::test_demo;
+mod model {
+    pub mod guess_number_game;
+    pub mod tcp_communication_demo;
+}
 
 fn main() {
-    let guess = create_random_number();
-    println!("The secret number is: {}", guess);
+    println!("Hello, world!");
+    let test_case = 1;
+    match test_case {
+        1 => {
+            println!("test_case: {}", test_case);
+            model::tcp_communication_demo::tcp_communication_demo_model::tcp_server_start();
+        }
+        2 => {
+            println!("test_case: {}", test_case);
+            Thread::spawn(|| {
+                model::tcp_communication_demo::tcp_communication_demo_model::tcp_server_start();
+            });
 
-    loop {
-        let input : u32 = get_user_input();
-        print!("your input value is: {}, ", input);
-
-        match input.cmp(&guess) {
-            std::cmp::Ordering::Less => println!("Too small!"),
-            std::cmp::Ordering::Greater => println!("Too big!"),
-            std::cmp::Ordering::Equal => {
-                println!("You win!");
-                break;
-            },
+            model::guess_number_game::guess_number_game_model::guess_number_game_start();
+        }
+        _ => {
+            println!("test_case: {}", test_case);
+            println!("Hello, world!");
         }
     }
-}
-
-fn get_user_input() -> u32 {
-    let mut input = String::new();
-    loop {
-        input.clear();
-        println!("Please input your number:");
-        std::io::stdin().read_line(&mut input).expect("Failed to read line");
-        let input_int: u32 = match input.trim().parse() {
-            Ok(num) => num,
-            Err(_) => {
-                println!("Not a number {}, please input again", input.trim());
-                continue;
-            },
-        };
-        return input_int;
-    }
-}
-
-fn create_random_number() -> u32 {
-    let mut rng = rand::thread_rng();
-    let random_number = rng.gen_range(1..101);
-    return random_number;
 }
