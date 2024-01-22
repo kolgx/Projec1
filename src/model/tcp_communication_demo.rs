@@ -73,10 +73,10 @@ pub mod tcp_communication_demo_model {
         return Ok(());
     }
 
-    fn tcp_client_start() {
+    pub fn tcp_client_start() {
         let mut stream = match TcpStream::connect(format!("{}:{}", TCP_SERVER_ADDRESS, TCP_SERVER_PORT)) {
             Ok(stream) => {
-                println!(format!("Connected to server {}:{}!", TCP_SERVER_ADDRESS, TCP_SERVER_PORT));
+                println!("{}", format!("Connected to server {}:{}!", TCP_SERVER_ADDRESS, TCP_SERVER_PORT));
                 stream
             },
             Err(_) => {
@@ -84,7 +84,7 @@ pub mod tcp_communication_demo_model {
                 return;
             }
         };
-        match stream.write(b"GET / HTTP/1.1\r\n\r\n") {
+        match stream.write(b"GET /sleep HTTP/1.1\r\n\r\n") {
             Ok(_) => {}
             Err(_) => {
                 println!("Error occurred when writing to stream!");
