@@ -4,6 +4,7 @@ use std::time::Duration;
 mod model {
     pub mod guess_number_game;
     pub mod tcp_communication_demo;
+    pub mod binary_tree_demo;
 }
 
 fn main() {
@@ -19,13 +20,6 @@ fn main() {
             model::tcp_communication_demo::tcp_communication_demo_model::tcp_server_start();
         }
         2 => {
-            println!("test_case: {}", test_case);
-            thread::spawn(|| {
-                thread::sleep(Duration::from_secs(1));
-                model::tcp_communication_demo::tcp_communication_demo_model::tcp_client_start();
-            });
-        }
-        3 => {
             println!("test_case: {}", test_case);
             model::guess_number_game::guess_number_game_model::guess_number_game_start();
         }
